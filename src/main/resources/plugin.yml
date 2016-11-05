@@ -1,7 +1,19 @@
 name: Devathon Project
-description: A project for the Devathon contest
-version: 1.0.0
-author: Your Name Here
-
+version: ${version}
 main: org.devathon.contest2016.DevathonPlugin
+author: tmxx
+description: A project for the Devathon contest
 
+commands:
+  setlobby:
+    usage: /<command>
+    description: Set the lobby spawn
+  setingame:
+    usage: /<command>
+    description: Set the ingame spawn
+  setspectator:
+    usage: /<command>
+    description: Set the spectator spawn
+  setname:
+    usage: /<command> <Name> [Builder]
+    description: Set the name and the builder of the map
