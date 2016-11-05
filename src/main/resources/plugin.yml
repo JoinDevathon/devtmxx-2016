@@ -1,4 +1,4 @@
-name: Devathon Project
+name: DroidFactory
 version: ${version}
 main: org.devathon.contest2016.DevathonPlugin
 author: tmxx
@@ -17,3 +17,6 @@ commands:
   setname:
     usage: /<command> <Name> [Builder]
     description: Set the name and the builder of the map
+  module:
+    usage: /<command> [args]
+    description: Manage modules

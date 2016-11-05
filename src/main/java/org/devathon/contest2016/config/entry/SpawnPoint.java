@@ -35,8 +35,8 @@ public class SpawnPoint implements ConfigurationSerializable {
         this.x = ( Double ) data.get( "x" );
         this.y = ( Double ) data.get( "y" );
         this.z = ( Double ) data.get( "z" );
-        this.pitch = ( Float ) data.get( "pitch" );
-        this.yaw = ( Float ) data.get( "yaw" );
+        this.pitch = ( ( Double ) data.get( "pitch" ) ).floatValue();
+        this.yaw = ( ( Double ) data.get( "yaw" ) ).floatValue();
         this.loadWorld();
     }
 

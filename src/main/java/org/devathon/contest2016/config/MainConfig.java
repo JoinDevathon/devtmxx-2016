@@ -21,6 +21,7 @@ public class MainConfig {
     private boolean setup = true;
     private SpawnPoint lobbySpawn = new SpawnPoint( Bukkit.getWorlds().get( 0 ).getSpawnLocation() );
     private int lobbyTime = 60;
+    private int endingTime = 15;
     private int maxPlayers = 24;
     private int necessaryPlayers = 3;
 
@@ -56,6 +57,7 @@ public class MainConfig {
             fileConfiguration.set( "spawns.lobby", this.lobbySpawn );
 
             fileConfiguration.set( "times.lobby", this.lobbyTime );
+            fileConfiguration.set( "times.ending", this.endingTime );
 
             fileConfiguration.set( "players.max", this.maxPlayers );
             fileConfiguration.set( "players.necessary", this.necessaryPlayers );
@@ -78,6 +80,7 @@ public class MainConfig {
 
         ConfigurationSection timeSection = fileConfiguration.getConfigurationSection( "times" );
         this.lobbyTime = timeSection.getInt( "lobby" );
+        this.endingTime = timeSection.getInt( "ending" );
 
         ConfigurationSection playerSection = fileConfiguration.getConfigurationSection( "players" );
         this.maxPlayers = playerSection.getInt( "max" );
@@ -100,6 +103,10 @@ public class MainConfig {
 
     public int getLobbyTime() {
         return this.lobbyTime;
+    }
+
+    public int getEndingTime() {
+        return this.endingTime;
     }
 
     public int getMaxPlayers() {

@@ -3,6 +3,7 @@ package org.devathon.contest2016.listener.player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.devathon.contest2016.DevathonPlugin;
+import org.devathon.contest2016.user.GameUser;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 /**
@@ -18,6 +19,11 @@ public class PlayerSpawnLocationListener implements Listener {
 
     @EventHandler
     public void onSpawnPosition( PlayerSpawnLocationEvent event ) {
-        event.setSpawnLocation( this.devathonPlugin.getMainConfig().getLobbySpawn().getLocation() );
+        GameUser gameUser = GameUser.getGameUser( event.getPlayer().getUniqueId() );
+        if ( gameUser.getState().equals( GameUser.State.PLAYING ) ) {
+            event.setSpawnLocation( this.devathonPlugin.getMainConfig().getLobbySpawn().getLocation() );
+        } else {
+            event.setSpawnLocation( this.devathonPlugin.getMapConfig().getSpectatorSpawn().getLocation() );
+        }
     }
 }
