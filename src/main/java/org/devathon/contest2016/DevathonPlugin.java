@@ -32,6 +32,8 @@ public class DevathonPlugin extends JavaPlugin {
             this.getCommand( "setname" ).setExecutor( new SetNameCommand( this ) );
         } else {
             this.getLogger().info( "Server started in game mode" );
+
+
         }
     }
 

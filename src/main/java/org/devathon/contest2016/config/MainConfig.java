@@ -20,7 +20,6 @@ public class MainConfig {
 
     private boolean setup = true;
     private SpawnPoint lobbySpawn = new SpawnPoint( Bukkit.getWorlds().get( 0 ).getSpawnLocation() );
-    private SpawnPoint spectatorSpawn = new SpawnPoint( Bukkit.getWorlds().get( 0 ).getSpawnLocation() );
     private int lobbyTime = 60;
     private int maxPlayers = 24;
     private int necessaryPlayers = 3;
@@ -99,10 +98,6 @@ public class MainConfig {
         return this.lobbySpawn;
     }
 
-    public SpawnPoint getSpectatorSpawn() {
-        return this.spectatorSpawn;
-    }
-
     public int getLobbyTime() {
         return this.lobbyTime;
     }
@@ -115,15 +110,7 @@ public class MainConfig {
         return this.necessaryPlayers;
     }
 
-    public void setSetup( boolean setup ) {
-        this.setup = setup;
-    }
-
     public void setLobbySpawn( SpawnPoint lobbySpawn ) {
         this.lobbySpawn = lobbySpawn;
-    }
-
-    public void setSpectatorSpawn( SpawnPoint spectatorSpawn ) {
-        this.spectatorSpawn = spectatorSpawn;
     }
 }
