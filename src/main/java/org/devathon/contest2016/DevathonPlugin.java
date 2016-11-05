@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.devathon.contest2016.command.MachineCommand;
 import org.devathon.contest2016.command.ModuleCommand;
 import org.devathon.contest2016.command.SetIngameCommand;
 import org.devathon.contest2016.command.SetLobbyCommand;
@@ -49,6 +50,7 @@ public class DevathonPlugin extends JavaPlugin {
             this.getCommand( "setingame" ).setExecutor( new SetIngameCommand( this ) );
             this.getCommand( "setname" ).setExecutor( new SetNameCommand( this ) );
             this.getCommand( "module" ).setExecutor( new ModuleCommand( this ) );
+            this.getCommand( "machine" ).setExecutor( new MachineCommand( this ) );
         } else {
             this.getLogger().info( "Server started in game mode" );
 

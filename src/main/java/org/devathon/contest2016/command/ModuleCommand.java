@@ -55,7 +55,7 @@ public class ModuleCommand implements CommandExecutor {
                                 player.sendMessage( "§cPlease select a region first" );
                             }
                         }
-                    } else if ( args[ 0 ].equals( "pos1" ) ) {
+                    } else if ( args[ 0 ].equalsIgnoreCase( "pos1" ) ) {
                         Cuboid cuboid = this.uuidCuboidMap.get( player.getUniqueId() );
                         if ( cuboid == null ) {
                             cuboid = new Cuboid( player.getWorld().getName(), new Cuboid.Position( 0, 0, 0 ), new Cuboid.Position( 0, 0, 0 ) );
@@ -67,7 +67,7 @@ public class ModuleCommand implements CommandExecutor {
                         ) );
                         this.uuidCuboidMap.put( player.getUniqueId(), cuboid );
                         player.sendMessage( "§aFirst position set" );
-                    } else if ( args[ 0 ].equals( "pos2" ) ) {
+                    } else if ( args[ 0 ].equalsIgnoreCase( "pos2" ) ) {
                         Cuboid cuboid = this.uuidCuboidMap.get( player.getUniqueId() );
                         if ( cuboid == null ) {
                             cuboid = new Cuboid( player.getWorld().getName(), new Cuboid.Position( 0, 0, 0 ), new Cuboid.Position( 0, 0, 0 ) );
@@ -79,7 +79,7 @@ public class ModuleCommand implements CommandExecutor {
                         ) );
                         this.uuidCuboidMap.put( player.getUniqueId(), cuboid );
                         player.sendMessage( "§aSecond position set" );
-                    } else if ( args[ 0 ].equals( "start" ) ) {
+                    } else if ( args[ 0 ].equalsIgnoreCase( "start" ) ) {
                         if ( args.length < 2 ) {
                             player.sendMessage( "§cPlease specify a name" );
                         } else {
@@ -89,7 +89,7 @@ public class ModuleCommand implements CommandExecutor {
                             moduleConfig.saveConfig();
                             player.sendMessage( "§aStart position set for module " + name );
                         }
-                    } else if ( args[ 0 ].equals( "end" ) ) {
+                    } else if ( args[ 0 ].equalsIgnoreCase( "end" ) ) {
                         if ( args.length < 2 ) {
                             player.sendMessage( "§cPlease specify a name" );
                         } else {

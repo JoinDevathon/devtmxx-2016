@@ -20,3 +20,6 @@ commands:
   module:
     usage: /<command> [args]
     description: Manage modules
+  machine:
+    usage: /<command> [args]
+    description: Manage machines

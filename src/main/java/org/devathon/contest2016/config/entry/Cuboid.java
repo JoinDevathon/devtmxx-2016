@@ -80,6 +80,30 @@ public class Cuboid implements ConfigurationSerializable {
         this.second = second;
     }
 
+    public int getMaxX() {
+        return Math.max( this.first.getX(), this.second.getX() );
+    }
+
+    public int getMaxY() {
+        return Math.max( this.first.getY(), this.second.getY() );
+    }
+
+    public int getMaxZ() {
+        return Math.max( this.first.getZ(), this.second.getZ() );
+    }
+
+    public int getMinX() {
+        return Math.min( this.first.getX(), this.second.getX() );
+    }
+
+    public int getMinY() {
+        return Math.min( this.first.getY(), this.second.getY() );
+    }
+
+    public int getMinZ() {
+        return Math.min( this.first.getZ(), this.second.getZ() );
+    }
+
     private void loadWorld() {
         if ( Bukkit.getWorld( this.world ) == null ) {
             Bukkit.createWorld( new WorldCreator( this.world ) );

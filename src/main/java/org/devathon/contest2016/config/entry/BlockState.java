@@ -38,7 +38,7 @@ public class BlockState implements ConfigurationSerializable {
         this.y = ( Integer ) data.get( "y" );
         this.z = ( Integer ) data.get( "z" );
         this.material = ( String ) data.get( "material" );
-        this.data = ( Byte ) data.get( "data" );
+        this.data = ( ( Integer ) data.get( "data" ) ).byteValue();
         this.loadWorld();
     }
 

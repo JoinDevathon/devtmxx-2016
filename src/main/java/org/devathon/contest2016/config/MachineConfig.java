@@ -89,8 +89,16 @@ public class MachineConfig {
         return this.name;
     }
 
+    public void setName( String name ) {
+        this.name = name;
+    }
+
     public int getInterval() {
         return this.interval;
+    }
+
+    public void setInterval( int interval ) {
+        this.interval = interval;
     }
 
     public List< List< BlockState > > getBlockStates() {
@@ -99,5 +107,9 @@ public class MachineConfig {
 
     public String getModule() {
         return this.module;
+    }
+
+    public void setModule( String module ) {
+        this.module = module;
     }
 }
