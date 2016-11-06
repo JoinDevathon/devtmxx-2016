@@ -3,6 +3,7 @@ package org.devathon.contest2016.game.state;
 import org.bukkit.Bukkit;
 import org.devathon.contest2016.DevathonPlugin;
 import org.devathon.contest2016.game.Game;
+import org.devathon.contest2016.user.GameUser;
 
 /**
  * @author tmxx
@@ -31,6 +32,9 @@ public class EndingState extends GameState {
     public void start() {
         Bukkit.broadcastMessage( this.getDevathonPlugin().getPrefix() + "§cServer is restarting in §e" + this.getTime() +
                 " second" + ( this.getTime() == 1 ? "" : "s" ) );
+        for ( GameUser gameUser : GameUser.getGameUsers() ) {
+            gameUser.getIndividualScoreboard().unregisterObjectives();
+        }
     }
 
     @Override

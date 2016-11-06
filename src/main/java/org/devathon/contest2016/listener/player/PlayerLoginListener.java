@@ -19,7 +19,13 @@ public class PlayerLoginListener implements Listener {
 
     @EventHandler
     public void onPlayerLogin( PlayerLoginEvent event ) {
-        GameUser gameUser = new GameUser( event.getPlayer().getUniqueId(), event.getPlayer().getName() );
+        if ( this.devathonPlugin.getGame().getGameState().equals( this.devathonPlugin.getGame().getLobbyState() ) ) {
+            if ( GameUser.getPlayingUsers().size() >= this.devathonPlugin.getMainConfig().getMaxPlayers() ) {
+                event.disallow( PlayerLoginEvent.Result.KICK_FULL, "§cGame is full" );
+                return;
+            }
+        }
+        GameUser gameUser = new GameUser( this.devathonPlugin, event.getPlayer().getUniqueId(), event.getPlayer().getName() );
         gameUser.setState(
                 this.devathonPlugin.getGame().getGameState().equals( this.devathonPlugin.getGame().getLobbyState() ) ?
                         GameUser.State.PLAYING : GameUser.State.SPECTATING

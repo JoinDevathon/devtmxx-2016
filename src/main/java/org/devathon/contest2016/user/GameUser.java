@@ -2,11 +2,17 @@ package org.devathon.contest2016.user;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.devathon.contest2016.DevathonPlugin;
+import org.devathon.contest2016.module.Module;
+import org.devathon.contest2016.scoreboard.IndividualScoreboard;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 
@@ -40,8 +46,8 @@ public class GameUser {
         return uuidGameUserMap.values();
     }
 
-    public static Collection< GameUser > getPlayingUsers() {
-        Set< GameUser > gameUsers = new HashSet<>();
+    public static List< GameUser > getPlayingUsers() {
+        List< GameUser > gameUsers = new ArrayList<>();
 
         for ( GameUser gameUser : getGameUsers() ) {
             if ( gameUser.getState().equals( State.PLAYING ) ) {
@@ -52,8 +58,8 @@ public class GameUser {
         return gameUsers;
     }
 
-    public static Collection< GameUser > getSpectatingUsers() {
-        Set< GameUser > gameUsers = new HashSet<>();
+    public static List< GameUser > getSpectatingUsers() {
+        List< GameUser > gameUsers = new ArrayList<>();
 
         for ( GameUser gameUser : getGameUsers() ) {
             if ( gameUser.getState().equals( State.SPECTATING ) ) {
@@ -64,15 +70,23 @@ public class GameUser {
         return gameUsers;
     }
 
+    private final DevathonPlugin devathonPlugin;
     private final UUID uuid;
     private final String name;
 
+    private IndividualScoreboard individualScoreboard;
     private State state = State.PLAYING;
     private boolean movable = true;
+    private Module module = null;
 
-    public GameUser( UUID uuid, String name ) {
+    public GameUser( DevathonPlugin devathonPlugin, UUID uuid, String name ) {
+        this.devathonPlugin = devathonPlugin;
         this.uuid = uuid;
         this.name = name;
+    }
+
+    public void setupScoreboard() {
+        this.individualScoreboard = new IndividualScoreboard( devathonPlugin, this );
     }
 
     public UUID getUuid() {
@@ -91,6 +105,10 @@ public class GameUser {
         return this.getPlayer() != null;
     }
 
+    public IndividualScoreboard getIndividualScoreboard() {
+        return this.individualScoreboard;
+    }
+
     public State getState() {
         return this.state;
     }
@@ -105,6 +123,24 @@ public class GameUser {
 
     public void setMovable( boolean movable ) {
         this.movable = movable;
+    }
+
+    public Module getModule() {
+        return this.module;
+    }
+
+    public void setModule( Module module ) {
+        this.module = module;
+    }
+
+    public int getPercentage() {
+        int percentage = 0;
+
+        for ( Module module : this.devathonPlugin.getModuleList() ) {
+            percentage += module.getPercent( this.uuid, this.getPlayer().getLocation() );
+        }
+
+        return percentage;
     }
 
     public enum State {

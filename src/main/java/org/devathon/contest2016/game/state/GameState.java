@@ -14,7 +14,7 @@ public abstract class GameState {
     private final int startTime;
 
     private int time;
-    private boolean running = false;
+    private boolean running = true;
 
     public GameState( DevathonPlugin devathonPlugin, Game game, String name, int startTime ) {
         this.devathonPlugin = devathonPlugin;

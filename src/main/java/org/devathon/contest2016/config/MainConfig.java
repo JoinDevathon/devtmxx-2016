@@ -18,6 +18,7 @@ public class MainConfig {
 
     private boolean setup = true;
     private int lobbyTime = 60;
+    private int ingameTime = 360;
     private int endingTime = 15;
     private int maxPlayers = 24;
     private int necessaryPlayers = 3;
@@ -52,6 +53,7 @@ public class MainConfig {
             fileConfiguration.set( "setup", this.setup );
 
             fileConfiguration.set( "times.lobby", this.lobbyTime );
+            fileConfiguration.set( "times.ingame", this.ingameTime );
             fileConfiguration.set( "times.ending", this.endingTime );
 
             fileConfiguration.set( "players.max", this.maxPlayers );
@@ -72,6 +74,7 @@ public class MainConfig {
 
         ConfigurationSection timeSection = fileConfiguration.getConfigurationSection( "times" );
         this.lobbyTime = timeSection.getInt( "lobby" );
+        this.ingameTime = timeSection.getInt( "ingame" );
         this.endingTime = timeSection.getInt( "ending" );
 
         ConfigurationSection playerSection = fileConfiguration.getConfigurationSection( "players" );
@@ -91,6 +94,10 @@ public class MainConfig {
 
     public int getLobbyTime() {
         return this.lobbyTime;
+    }
+
+    public int getIngameTime() {
+        return this.ingameTime;
     }
 
     public int getEndingTime() {

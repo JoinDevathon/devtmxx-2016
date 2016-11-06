@@ -1,11 +1,13 @@
 package org.devathon.contest2016.game;
 
+import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.devathon.contest2016.DevathonPlugin;
 import org.devathon.contest2016.game.state.EndingState;
 import org.devathon.contest2016.game.state.GameState;
 import org.devathon.contest2016.game.state.IngameState;
 import org.devathon.contest2016.game.state.LobbyState;
+import org.devathon.contest2016.user.GameUser;
 
 /**
  * @author tmxx
@@ -52,6 +54,20 @@ public class Game {
         }
         this.gameState = gameState;
         this.gameState.start();
+    }
+
+    public void check() {
+        if ( GameUser.getPlayingUsers().size() <= 1 ) {
+            if ( this.gameState.equals( this.ingameState ) ) {
+                this.setGameState( this.endingState );
+            }
+            if ( GameUser.getPlayingUsers().size() == 0 ) {
+                Bukkit.broadcastMessage( this.devathonPlugin.getPrefix() + "§cNobody won the game" );
+            } else {
+                GameUser gameUser = GameUser.getPlayingUsers().get( 0 );
+                Bukkit.broadcastMessage( this.devathonPlugin.getPrefix() + "§a§l" + gameUser.getName() + " won the game" );
+            }
+        }
     }
 
     public GameState getGameState() {

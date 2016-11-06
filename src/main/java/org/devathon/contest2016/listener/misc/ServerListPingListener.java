@@ -20,6 +20,7 @@ public class ServerListPingListener implements Listener {
     public void onServerListPing( ServerListPingEvent event ) {
         event.setMaxPlayers( this.devathonPlugin.getMainConfig().getMaxPlayers() );
         event.setMotd( "§c§lDroidFactory: §e§l" + this.devathonPlugin.getMapConfig().getName() + "\n" +
-                "§c§lCurrent State: §e§l" + this.devathonPlugin.getGame().getGameState().getName() );
+                "§c§lCurrent State: §e§l" + ( this.devathonPlugin.getGame().getGameState() == null ?
+                    "Unknown" : this.devathonPlugin.getGame().getGameState().getName() ) );
     }
 }

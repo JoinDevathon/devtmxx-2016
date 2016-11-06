@@ -40,8 +40,8 @@ public class MachineTask extends BukkitRunnable {
             }
             List< BlockState > stageBlockStates = blockStates.get( stage++ );
             for ( BlockState blockState : stageBlockStates ) {
-                blockState.getLocation().getBlock().setType( blockState.getMaterial() );
-                blockState.getLocation().getBlock().setData( blockState.getData() );
+                blockState.getLocation().getBlock().setType( blockState.getMaterial(), false );
+                blockState.getLocation().getBlock().setData( blockState.getData(), false );
             }
         }
     }
