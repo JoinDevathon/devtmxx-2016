@@ -36,11 +36,11 @@ public class GameUser {
         return nameGameUserMap.get( name.toLowerCase() );
     }
 
-    public Collection< GameUser > getGameUsers() {
+    public static Collection< GameUser > getGameUsers() {
         return uuidGameUserMap.values();
     }
 
-    public Collection< GameUser > getPlayingUsers() {
+    public static Collection< GameUser > getPlayingUsers() {
         Set< GameUser > gameUsers = new HashSet<>();
 
         for ( GameUser gameUser : getGameUsers() ) {
@@ -52,7 +52,7 @@ public class GameUser {
         return gameUsers;
     }
 
-    public Collection< GameUser > getSpectatingUsers() {
+    public static Collection< GameUser > getSpectatingUsers() {
         Set< GameUser > gameUsers = new HashSet<>();
 
         for ( GameUser gameUser : getGameUsers() ) {

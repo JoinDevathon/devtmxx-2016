@@ -24,7 +24,12 @@ import org.devathon.contest2016.listener.entity.EntityDamageByEntityListener;
 import org.devathon.contest2016.listener.entity.EntityDamageListener;
 import org.devathon.contest2016.listener.misc.CreatureSpawnListener;
 import org.devathon.contest2016.listener.misc.FoodLevelChangeListener;
+import org.devathon.contest2016.listener.misc.ServerListPingListener;
+import org.devathon.contest2016.listener.player.AsyncPlayerChatListener;
+import org.devathon.contest2016.listener.player.PlayerJoinListener;
+import org.devathon.contest2016.listener.player.PlayerLoginListener;
 import org.devathon.contest2016.listener.player.PlayerMoveListener;
+import org.devathon.contest2016.listener.player.PlayerQuitListener;
 import org.devathon.contest2016.listener.player.PlayerSpawnLocationListener;
 import org.devathon.contest2016.listener.world.ChunkLoadListener;
 import org.devathon.contest2016.listener.world.WeatherChangeListener;
@@ -84,8 +89,13 @@ public class DevathonPlugin extends JavaPlugin {
 
             pluginManager.registerEvents( new CreatureSpawnListener(), this );
             pluginManager.registerEvents( new FoodLevelChangeListener(), this );
+            pluginManager.registerEvents( new ServerListPingListener( this ), this );
 
+            pluginManager.registerEvents( new AsyncPlayerChatListener(), this );
+            pluginManager.registerEvents( new PlayerJoinListener( this ), this );
+            pluginManager.registerEvents( new PlayerLoginListener( this ), this );
             pluginManager.registerEvents( new PlayerMoveListener(), this );
+            pluginManager.registerEvents( new PlayerQuitListener(), this );
             pluginManager.registerEvents( new PlayerSpawnLocationListener( this ), this );
 
             pluginManager.registerEvents( new ChunkLoadListener(), this );
