@@ -21,7 +21,7 @@ public class PlayerSpawnLocationListener implements Listener {
     public void onSpawnPosition( PlayerSpawnLocationEvent event ) {
         GameUser gameUser = GameUser.getGameUser( event.getPlayer().getUniqueId() );
         if ( gameUser.getState().equals( GameUser.State.PLAYING ) ) {
-            event.setSpawnLocation( this.devathonPlugin.getMainConfig().getLobbySpawn().getLocation() );
+            event.setSpawnLocation( this.devathonPlugin.getMapConfig().getLobbySpawn().getLocation() );
         } else {
             event.setSpawnLocation( this.devathonPlugin.getMapConfig().getSpectatorSpawn().getLocation() );
         }

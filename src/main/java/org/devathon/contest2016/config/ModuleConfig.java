@@ -40,12 +40,12 @@ public class ModuleConfig {
             if ( !file.exists() ) {
                 try {
                     if ( !file.createNewFile() ) {
-                        this.devathonPlugin.getLogger().severe( "Could not create configuration file" );
+                        this.devathonPlugin.getLogger().severe( "Could not create module configuration file" );
                     } else {
                         this.saveConfig();
                     }
                 } catch ( IOException e ) {
-                    this.devathonPlugin.getLogger().log( Level.SEVERE, "Could not load configuration file", e );
+                    this.devathonPlugin.getLogger().log( Level.SEVERE, "Could not load module configuration file", e );
                 }
             }
             this.loadConfig();
@@ -63,9 +63,9 @@ public class ModuleConfig {
             fileConfiguration.set( "positions.end", this.endPosition );
 
             fileConfiguration.save( file );
-            this.devathonPlugin.getLogger().info( "Saved configuration file" );
+            this.devathonPlugin.getLogger().info( "Saved module configuration file" );
         } catch ( IOException e ) {
-            this.devathonPlugin.getLogger().log( Level.SEVERE, "Could not save configuration file", e );
+            this.devathonPlugin.getLogger().log( Level.SEVERE, "Could not save module configuration file", e );
         }
     }
 
@@ -80,7 +80,7 @@ public class ModuleConfig {
         this.startPosition = ( SpawnPoint ) positionSection.get( "start" );
         this.endPosition = ( SpawnPoint ) positionSection.get( "end" );
 
-        this.devathonPlugin.getLogger().info( "Loaded machine configuration file" );
+        this.devathonPlugin.getLogger().info( "Loaded module configuration file" );
     }
 
     private File getFile() {

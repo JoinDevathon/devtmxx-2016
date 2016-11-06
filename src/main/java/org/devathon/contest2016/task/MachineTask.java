@@ -22,6 +22,14 @@ public class MachineTask extends BukkitRunnable {
         this.machineConfig = machineConfig;
     }
 
+    public void start() {
+        this.runTaskTimer( this.devathonPlugin, 0L, this.machineConfig.getInterval() );
+    }
+
+    public void stop() {
+        this.cancel();
+    }
+
     @SuppressWarnings( "deprecation" )
     @Override
     public void run() {

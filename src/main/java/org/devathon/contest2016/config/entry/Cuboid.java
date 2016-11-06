@@ -35,6 +35,7 @@ public class Cuboid implements ConfigurationSerializable {
                 ( Integer ) data.get( "second.y" ),
                 ( Integer ) data.get( "second.z" )
         );
+        this.loadWorld();
     }
 
     @Override

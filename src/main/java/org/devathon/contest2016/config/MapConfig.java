@@ -20,6 +20,7 @@ public class MapConfig {
 
     private String name = "Not specified";
     private String builder = "Not specified";
+    private SpawnPoint lobbySpawn = new SpawnPoint( Bukkit.getWorlds().get( 0 ).getSpawnLocation() );
     private SpawnPoint ingameSpawn = new SpawnPoint( Bukkit.getWorlds().get( 0 ).getSpawnLocation() );
     private SpawnPoint spectatorSpawn = new SpawnPoint( Bukkit.getWorlds().get( 0 ).getSpawnLocation() );
 
@@ -32,12 +33,12 @@ public class MapConfig {
             if ( !file.exists() ) {
                 try {
                     if ( !file.createNewFile() ) {
-                        this.devathonPlugin.getLogger().severe( "Could not create configuration file" );
+                        this.devathonPlugin.getLogger().severe( "Could not create map configuration file" );
                     } else {
                         this.saveConfig();
                     }
                 } catch ( IOException e ) {
-                    this.devathonPlugin.getLogger().log( Level.SEVERE, "Could not load configuration file", e );
+                    this.devathonPlugin.getLogger().log( Level.SEVERE, "Could not load map configuration file", e );
                 }
             }
             this.loadConfig();
@@ -52,13 +53,14 @@ public class MapConfig {
             fileConfiguration.set( "name", this.name );
             fileConfiguration.set( "builder", this.builder );
 
+            fileConfiguration.set( "spawns.lobby", this.lobbySpawn );
             fileConfiguration.set( "spawns.ingame", this.ingameSpawn );
             fileConfiguration.set( "spawns.spectator", this.spectatorSpawn );
 
             fileConfiguration.save( file );
-            this.devathonPlugin.getLogger().info( "Saved configuration file" );
+            this.devathonPlugin.getLogger().info( "Saved map configuration file" );
         } catch ( IOException e ) {
-            this.devathonPlugin.getLogger().log( Level.SEVERE, "Could not save configuration file", e );
+            this.devathonPlugin.getLogger().log( Level.SEVERE, "Could not save map configuration file", e );
         }
     }
 
@@ -70,10 +72,11 @@ public class MapConfig {
         this.builder = fileConfiguration.getString( "builder" );
 
         ConfigurationSection spawnSection = fileConfiguration.getConfigurationSection( "spawns" );
+        this.lobbySpawn = ( SpawnPoint ) spawnSection.get( "lobby" );
         this.ingameSpawn = ( SpawnPoint ) spawnSection.get( "ingame" );
         this.spectatorSpawn = ( SpawnPoint ) spawnSection.get( "spectator" );
 
-        this.devathonPlugin.getLogger().info( "Loaded configuration file" );
+        this.devathonPlugin.getLogger().info( "Loaded map configuration file" );
     }
 
     private File getFile() {
@@ -86,6 +89,10 @@ public class MapConfig {
 
     public String getBuilder() {
         return this.builder;
+    }
+
+    public SpawnPoint getLobbySpawn() {
+        return this.lobbySpawn;
     }
 
     public SpawnPoint getIngameSpawn() {
@@ -102,6 +109,10 @@ public class MapConfig {
 
     public void setBuilder( String builder ) {
         this.builder = builder;
+    }
+
+    public void setLobbySpawn( SpawnPoint lobbySpawn ) {
+        this.lobbySpawn = lobbySpawn;
     }
 
     public void setIngameSpawn( SpawnPoint ingameSpawn ) {

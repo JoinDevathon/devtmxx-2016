@@ -50,7 +50,7 @@ public class MachineCommand implements CommandExecutor {
                             MachineConfig machineConfig = new MachineConfig( this.devathonPlugin, name.toLowerCase() );
                             machineConfig.setName( name );
                             machineConfig.saveConfig();
-                            player.sendMessage( "§aSuccessfully created module §e" + name );
+                            player.sendMessage( "§aSuccessfully created machine §e" + name );
                         }
                     } else if ( args[ 0 ].equalsIgnoreCase( "pos1" ) ) {
                         Cuboid cuboid = this.uuidCuboidMap.get( player.getUniqueId() );
@@ -86,9 +86,9 @@ public class MachineCommand implements CommandExecutor {
                             } else {
                                 String name = args[ 1 ].toLowerCase();
                                 List< BlockState > blockStates = new ArrayList<>();
-                                for ( int x = cuboid.getMinX(); x < cuboid.getMaxX(); x++ ) {
-                                    for ( int y = cuboid.getMinY(); y < cuboid.getMaxY(); y++ ) {
-                                        for ( int z = cuboid.getMinZ(); z < cuboid.getMaxZ(); z++ ) {
+                                for ( int x = cuboid.getMinX(); x <= cuboid.getMaxX(); x++ ) {
+                                    for ( int y = cuboid.getMinY(); y <= cuboid.getMaxY(); y++ ) {
+                                        for ( int z = cuboid.getMinZ(); z <= cuboid.getMaxZ(); z++ ) {
                                             blockStates.add( new BlockState( player.getWorld().getBlockAt( x, y, z ) ) );
                                         }
                                     }

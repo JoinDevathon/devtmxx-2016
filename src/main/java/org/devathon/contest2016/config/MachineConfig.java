@@ -35,12 +35,12 @@ public class MachineConfig {
             if ( !file.exists() ) {
                 try {
                     if ( !file.createNewFile() ) {
-                        this.devathonPlugin.getLogger().severe( "Could not create configuration file" );
+                        this.devathonPlugin.getLogger().severe( "Could not create machine configuration file" );
                     } else {
                         this.saveConfig();
                     }
                 } catch ( IOException e ) {
-                    this.devathonPlugin.getLogger().log( Level.SEVERE, "Could not load configuration file", e );
+                    this.devathonPlugin.getLogger().log( Level.SEVERE, "Could not load machine configuration file", e );
                 }
             }
             this.loadConfig();
@@ -58,9 +58,9 @@ public class MachineConfig {
             fileConfiguration.set( "module", this.module );
 
             fileConfiguration.save( file );
-            this.devathonPlugin.getLogger().info( "Saved configuration file" );
+            this.devathonPlugin.getLogger().info( "Saved machine configuration file" );
         } catch ( IOException e ) {
-            this.devathonPlugin.getLogger().log( Level.SEVERE, "Could not save configuration file", e );
+            this.devathonPlugin.getLogger().log( Level.SEVERE, "Could not save machine configuration file", e );
         }
     }
 

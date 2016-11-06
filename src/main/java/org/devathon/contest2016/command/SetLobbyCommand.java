@@ -23,8 +23,8 @@ public class SetLobbyCommand implements CommandExecutor {
         if ( commandSender.hasPermission( "droidfactory.setlobby" ) ) {
             if ( commandSender instanceof Player ) {
                 Player player = ( Player ) commandSender;
-                this.devathonPlugin.getMainConfig().setLobbySpawn( new SpawnPoint( player.getLocation() ) );
-                this.devathonPlugin.getMainConfig().saveConfig();
+                this.devathonPlugin.getMapConfig().setLobbySpawn( new SpawnPoint( player.getLocation() ) );
+                this.devathonPlugin.getMapConfig().saveConfig();
                 player.sendMessage( this.devathonPlugin.getPrefix() + "§aSuccessfully set lobby spawn" );
             } else {
                 commandSender.sendMessage( "Cannot execute command as console" );

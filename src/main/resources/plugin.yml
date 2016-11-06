@@ -23,3 +23,9 @@ commands:
   machine:
     usage: /<command> [args]
     description: Manage machines
+  soundspot:
+    usage: /<command> [args]
+    description: Manage sound spots
+  effectspot:
+    usage: /<command> [args]
+    description: Manage effect spots
