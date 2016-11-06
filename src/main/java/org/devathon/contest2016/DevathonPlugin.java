@@ -1,15 +1,8 @@
 package org.devathon.contest2016;
 
 import com.google.common.reflect.ClassPath;
-import net.minecraft.server.v1_10_R1.EnumDifficulty;
-import net.minecraft.server.v1_10_R1.EnumGamemode;
-import net.minecraft.server.v1_10_R1.PacketPlayOutRespawn;
-import net.minecraft.server.v1_10_R1.WorldType;
 import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
 import org.bukkit.World;
-import org.bukkit.block.Biome;
-import org.bukkit.craftbukkit.v1_10_R1.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,6 +13,7 @@ import org.devathon.contest2016.command.SetIngameCommand;
 import org.devathon.contest2016.command.SetLobbyCommand;
 import org.devathon.contest2016.command.SetNameCommand;
 import org.devathon.contest2016.command.SetSpectatorCommand;
+import org.devathon.contest2016.command.SetWinCommand;
 import org.devathon.contest2016.command.SoundSpotCommand;
 import org.devathon.contest2016.config.EffectConfig;
 import org.devathon.contest2016.config.MachineConfig;
@@ -29,16 +23,20 @@ import org.devathon.contest2016.config.ModuleConfig;
 import org.devathon.contest2016.config.SoundConfig;
 import org.devathon.contest2016.game.Game;
 import org.devathon.contest2016.listener.block.BlockBreakListener;
+import org.devathon.contest2016.listener.block.BlockFadeListener;
 import org.devathon.contest2016.listener.block.BlockPhysicsListener;
 import org.devathon.contest2016.listener.block.BlockPlaceListener;
 import org.devathon.contest2016.listener.entity.EntityChangeBlockListener;
 import org.devathon.contest2016.listener.entity.EntityDamageByEntityListener;
 import org.devathon.contest2016.listener.entity.EntityDamageListener;
+import org.devathon.contest2016.listener.entity.EntityRegainHealthListener;
+import org.devathon.contest2016.listener.entity.EntitySpawnListener;
 import org.devathon.contest2016.listener.misc.CreatureSpawnListener;
 import org.devathon.contest2016.listener.misc.FoodLevelChangeListener;
 import org.devathon.contest2016.listener.misc.ServerListPingListener;
 import org.devathon.contest2016.listener.player.AsyncPlayerChatListener;
 import org.devathon.contest2016.listener.player.PlayerDeathListener;
+import org.devathon.contest2016.listener.player.PlayerDropItemListener;
 import org.devathon.contest2016.listener.player.PlayerJoinListener;
 import org.devathon.contest2016.listener.player.PlayerLoginListener;
 import org.devathon.contest2016.listener.player.PlayerMoveListener;
@@ -70,7 +68,7 @@ public class DevathonPlugin extends JavaPlugin {
     private Game game;
     private List< Module > moduleList = new ArrayList<>();
     private List< MachineConfig > machineConfigList = new ArrayList<>();
-    private int percentPerModule;
+    private double percentPerModule;
 
     @Override
     public void onEnable() {
@@ -108,26 +106,31 @@ public class DevathonPlugin extends JavaPlugin {
             this.getCommand( "machine" ).setExecutor( new MachineCommand( this ) );
             this.getCommand( "soundspot" ).setExecutor( new SoundSpotCommand( this ) );
             this.getCommand( "effectspot" ).setExecutor( new EffectSpotCommand( this ) );
+            this.getCommand( "setwin" ).setExecutor( new SetWinCommand( this ) );
         } else {
             this.getLogger().info( "Server started in game mode" );
 
             PluginManager pluginManager = this.getServer().getPluginManager();
             pluginManager.registerEvents( new BlockBreakListener(), this );
+            pluginManager.registerEvents( new BlockFadeListener(), this );
             pluginManager.registerEvents( new BlockPhysicsListener(), this );
             pluginManager.registerEvents( new BlockPlaceListener(), this );
 
             pluginManager.registerEvents( new EntityChangeBlockListener(), this );
             pluginManager.registerEvents( new EntityDamageByEntityListener(), this );
             pluginManager.registerEvents( new EntityDamageListener( this ), this );
+            pluginManager.registerEvents( new EntityRegainHealthListener(), this );
+            pluginManager.registerEvents( new EntitySpawnListener(), this );
 
             pluginManager.registerEvents( new CreatureSpawnListener(), this );
             pluginManager.registerEvents( new FoodLevelChangeListener(), this );
-            pluginManager.registerEvents( new ServerListPingListener( this ), this );
 
             pluginManager.registerEvents( new AsyncPlayerChatListener(), this );
             pluginManager.registerEvents( new PlayerDeathListener( this ), this );
+            pluginManager.registerEvents( new PlayerDropItemListener(), this );
             pluginManager.registerEvents( new PlayerJoinListener( this ), this );
             pluginManager.registerEvents( new PlayerLoginListener( this ), this );
+            pluginManager.registerEvents( new PlayerMoveListener(), this );
             pluginManager.registerEvents( new PlayerMoveListener(), this );
             pluginManager.registerEvents( new PlayerQuitListener( this ), this );
             pluginManager.registerEvents( new PlayerRespawnListener( this ), this );
@@ -171,11 +174,17 @@ public class DevathonPlugin extends JavaPlugin {
                     }
                 }
             }
-            this.percentPerModule = 100 / this.moduleList.size();
+            this.percentPerModule = Math.ceil( 100.0D / ( double ) this.moduleList.size() );
 
             this.game = new Game( this );
             this.game.setGameState( this.game.getLobbyState() );
             this.game.start();
+
+            pluginManager.registerEvents( new ServerListPingListener( this ), this );
+
+            for ( World world : Bukkit.getWorlds() ) {
+                world.setGameRuleValue( "doNaturalRegen", "false" );
+            }
         }
     }
 
@@ -214,6 +223,10 @@ public class DevathonPlugin extends JavaPlugin {
         return this.soundConfig;
     }
 
+    public EffectConfig getEffectConfig() {
+        return this.effectConfig;
+    }
+
     public Game getGame() {
         return this.game;
     }
@@ -226,7 +239,7 @@ public class DevathonPlugin extends JavaPlugin {
         return this.moduleList;
     }
 
-    public int getPercentPerModule() {
+    public double getPercentPerModule() {
         return this.percentPerModule;
     }
 }

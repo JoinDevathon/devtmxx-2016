@@ -29,3 +29,6 @@ commands:
   effectspot:
     usage: /<command> [args]
     description: Manage effect spots
+  setwin:
+    usage: /<command>
+    description: Set the win location

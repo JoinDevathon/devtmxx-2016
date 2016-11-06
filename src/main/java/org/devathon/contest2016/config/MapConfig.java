@@ -23,6 +23,7 @@ public class MapConfig {
     private SpawnPoint lobbySpawn = new SpawnPoint( Bukkit.getWorlds().get( 0 ).getSpawnLocation() );
     private SpawnPoint ingameSpawn = new SpawnPoint( Bukkit.getWorlds().get( 0 ).getSpawnLocation() );
     private SpawnPoint spectatorSpawn = new SpawnPoint( Bukkit.getWorlds().get( 0 ).getSpawnLocation() );
+    private SpawnPoint winLocation = new SpawnPoint( Bukkit.getWorlds().get( 0 ).getSpawnLocation() );
 
     public MapConfig( DevathonPlugin devathonPlugin ) {
         this.devathonPlugin = devathonPlugin;
@@ -56,6 +57,7 @@ public class MapConfig {
             fileConfiguration.set( "spawns.lobby", this.lobbySpawn );
             fileConfiguration.set( "spawns.ingame", this.ingameSpawn );
             fileConfiguration.set( "spawns.spectator", this.spectatorSpawn );
+            fileConfiguration.set( "spawns.win", this.winLocation );
 
             fileConfiguration.save( file );
             this.devathonPlugin.getLogger().info( "Saved map configuration file" );
@@ -75,6 +77,7 @@ public class MapConfig {
         this.lobbySpawn = ( SpawnPoint ) spawnSection.get( "lobby" );
         this.ingameSpawn = ( SpawnPoint ) spawnSection.get( "ingame" );
         this.spectatorSpawn = ( SpawnPoint ) spawnSection.get( "spectator" );
+        this.winLocation = ( SpawnPoint ) spawnSection.get( "win" );
 
         this.devathonPlugin.getLogger().info( "Loaded map configuration file" );
     }
@@ -103,6 +106,10 @@ public class MapConfig {
         return this.spectatorSpawn;
     }
 
+    public SpawnPoint getWinLocation() {
+        return this.winLocation;
+    }
+
     public void setName( String name ) {
         this.name = name;
     }
@@ -121,5 +128,9 @@ public class MapConfig {
 
     public void setSpectatorSpawn( SpawnPoint spectatorSpawn ) {
         this.spectatorSpawn = spectatorSpawn;
+    }
+
+    public void setWinLocation( SpawnPoint winLocation ) {
+        this.winLocation = winLocation;
     }
 }

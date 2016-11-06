@@ -137,7 +137,7 @@ public class GameUser {
         int percentage = 0;
 
         for ( Module module : this.devathonPlugin.getModuleList() ) {
-            percentage += module.getPercent( this.uuid, this.getPlayer().getLocation() );
+            percentage += Math.ceil( module.getPercent( this.uuid, this.getPlayer().getLocation() ) );
         }
 
         return percentage;

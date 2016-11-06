@@ -24,7 +24,7 @@ public class Module {
     private boolean running = false;
     private List< MachineConfig > machineConfigs = new ArrayList<>();
     private List< MachineTask > machineTasks = new ArrayList<>();
-    private Map< UUID, Integer > userPercentMap = new HashMap<>();
+    private Map< UUID, Double > userPercentMap = new HashMap<>();
 
     public Module( DevathonPlugin devathonPlugin, ModuleConfig moduleConfig ) {
         this.devathonPlugin = devathonPlugin;
@@ -80,11 +80,11 @@ public class Module {
         return this.moduleConfig;
     }
 
-    public int getPercent( UUID uuid, Location location ) {
+    public double getPercent( UUID uuid, Location location ) {
         if ( this.isInBounds( location ) ) {
             double fullDistance = this.moduleConfig.getStartPosition().getLocation().distanceSquared( this.moduleConfig.getEndPosition().getLocation() );
             double distance = location.distanceSquared( this.moduleConfig.getEndPosition().getLocation() );
-            int percentage = ( int ) ( ( double ) this.devathonPlugin.getPercentPerModule() * ( distance / fullDistance ) );
+            double percentage = ( this.devathonPlugin.getPercentPerModule() * ( 1.0D - ( distance / fullDistance ) ) );
             this.userPercentMap.put( uuid, percentage );
             return percentage;
         } else {

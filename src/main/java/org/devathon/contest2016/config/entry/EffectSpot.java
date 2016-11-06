@@ -6,6 +6,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.WorldCreator;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.craftbukkit.v1_10_R1.entity.CraftPlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import java.util.HashMap;
@@ -88,6 +90,9 @@ public class EffectSpot implements ConfigurationSerializable {
                 this.amount,
                 null
         );
+        for ( Player player : Bukkit.getOnlinePlayers() ) {
+            ( ( CraftPlayer ) player ).getHandle().playerConnection.sendPacket( packetPlayOutWorldParticles );
+        }
     }
 
     public int getInterval() {

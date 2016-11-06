@@ -16,7 +16,7 @@ public class PlayerMoveListener implements Listener {
         if ( gameUser != null && !gameUser.isMovable() ) {
             if ( event.getFrom().getX() != event.getTo().getX() ||
                     event.getFrom().getY() != event.getTo().getY() ||
-                    event.getFrom().getZ() != event.getTo().getX() ) {
+                    event.getFrom().getZ() != event.getTo().getZ() ) {
                 gameUser.getPlayer().teleport( event.getFrom() );
             }
         }

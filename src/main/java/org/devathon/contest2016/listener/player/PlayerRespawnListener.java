@@ -1,5 +1,7 @@
 package org.devathon.contest2016.listener.player;
 
+import net.minecraft.server.v1_10_R1.PacketPlayOutTitle;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -17,6 +19,7 @@ public class PlayerRespawnListener implements Listener {
         this.devathonPlugin = devathonPlugin;
     }
 
+    @SuppressWarnings( "deprecation" )
     @EventHandler
     public void onPlayerRespawn( PlayerRespawnEvent event ) {
         GameUser gameUser = GameUser.getGameUser( event.getPlayer().getUniqueId() );
@@ -25,5 +28,16 @@ public class PlayerRespawnListener implements Listener {
         } else {
             event.setRespawnLocation( gameUser.getModule().getModuleConfig().getStartPosition().getLocation() );
         }
+        gameUser.setMovable( false );
+        gameUser.getPlayer().sendTitle( "", "§cReady?" );
+        Bukkit.getScheduler().runTaskLater( this.devathonPlugin, new Runnable() {
+            @Override
+            public void run() {
+                if ( gameUser.isOnline() ) {
+                    gameUser.getPlayer().sendTitle( "§aGo!", "§cReady?" );
+                    gameUser.setMovable( true );
+                }
+            }
+        }, 40L );
     }
 }

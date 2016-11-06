@@ -26,6 +26,7 @@ public class EntityDamageListener implements Listener {
                 case FIRE_TICK:
                 case HOT_FLOOR:
                 case LAVA:
+                    event.setDamage( 7.5D );
                     event.setCancelled( false );
                     break;
                 default:

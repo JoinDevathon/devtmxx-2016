@@ -1,6 +1,7 @@
 package org.devathon.contest2016.listener.player;
 
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.devathon.contest2016.DevathonPlugin;
@@ -17,7 +18,7 @@ public class PlayerLoginListener implements Listener {
         this.devathonPlugin = devathonPlugin;
     }
 
-    @EventHandler
+    @EventHandler( priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerLogin( PlayerLoginEvent event ) {
         if ( this.devathonPlugin.getGame().getGameState().equals( this.devathonPlugin.getGame().getLobbyState() ) ) {
             if ( GameUser.getPlayingUsers().size() >= this.devathonPlugin.getMainConfig().getMaxPlayers() ) {
